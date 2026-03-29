@@ -11,11 +11,8 @@ import scala.reflect.ClassTag
   */
 trait Smockito extends MockSyntax:
 
-  /** Creates a [[Mock]] instance of `T`.
-    *
-    * A `Mock[T]` is the [[Smockito]] compile time representation of a type mocked by Mockito,
-    * erased at runtime. As such, after you set up method stubs, you may pass a mock anywhere a `T`
-    * is needed.
+  /** Creates a [[Mock]] instance of `T`. A `Mock[T]` is the compile time representation of an
+    * instance of `T` mocked by Mockito, erased at runtime, whose default answer is to throw.
     *
     * @tparam T
     *   the type to mock.
@@ -24,19 +21,11 @@ trait Smockito extends MockSyntax:
     */
   def mock[T: ClassTag]: Mock[T] = Mock.apply
 
-  /** Creates a [[Spy]] instance of `T`.
-    *
-    * A `Spy[T]` is the [[Smockito]] compile time representation of a type spied by Mockito, erased
-    * at runtime. Keep in mind that Mockito spies are copies of real instances, so any method side
-    * effects won't affect the original object.
-    *
-    * A `Spy[T]` is also a `Mock[T]`, so you may use all methods available on [[Mock]].
-    *
-    * If you only need to forward a few methods to a real instance, consider using the [[forward]]
-    * method on a [[Mock]] instead for clarity and performance.
+  /** Creates a [[Spy]] instance of `T`. A `Spy[T]` is the compile time representation of a real
+    * instance of `T` copied by Mockito for spying purposes, erased at runtime.
     *
     * @tparam T
-    *   the type to spy.
+    *   the type of the real instance to spy on.
     * @return
     *   the spy instance.
     */
